@@ -1,0 +1,6 @@
+{
+  "name": "Crescent Wealth",
+  "description": "Urdu RTL investment portfolio app with VIP plans, Easypaisa and JazzCash deposits and withdrawals, Gemini AI Face Verification, 2FA security, real-time balance tracking, and an admin management panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

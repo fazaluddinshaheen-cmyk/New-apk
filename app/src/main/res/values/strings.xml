@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Crescent Wealth</string>
+    <string name="app_brand_urdu">کریسنٹ ویلتھ</string>
+    <string name="welcome_to_app">Welcome To App</string>
+    <string name="tagline_wealth">محفوظ سرمایہ کاری اور روزانہ منافع والٹ</string>
+    <string name="sign_in_google">Google کے ساتھ جاری رکھیں</string>
+    <string name="login_tab">لاگ ان</string>
+    <string name="register_tab">رجسٹر</string>
+    <string name="nav_dashboard">ہوم</string>
+    <string name="nav_plans">پلانز</string>
+    <string name="nav_wallet">والٹ</string>
+    <string name="nav_history">تاریخچہ</string>
+    <string name="nav_profile">پروفائل</string>
+    <string name="maintenance_title">سسٹم مرمت جاری ہے</string>
+    <string name="two_fa_title">ٹو فیکٹر تصدیق</string>
+    <string name="face_verification_title">AI فیس ویریفکیشن</string>
+    <string name="admin_panel_title">ایڈمن کنٹرول سینٹر</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="firestore_database_id" translatable="false">ai-studio-android-crescent-5182e085-821e-4b59-8f6b-3f813dfde01a</string>
+    <string name="recaptcha_site_key" translatable="false">6LeEfB8uAAAAAMtoOyke396p77rBjKsHEEnTiYtW</string>
+</resources>

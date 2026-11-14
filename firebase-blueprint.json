@@ -1,0 +1,301 @@
+{
+  "entities": {
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Global platform configuration managed by admins including maintenance mode, deposit fee percentage, referral bonus, and Easypaisa/JazzCash merchant details.",
+      "type": "object",
+      "properties": {
+        "maintenanceMode": { "type": "boolean" },
+        "maintenanceMessage": { "type": "string" },
+        "depositFeePercent": { "type": "number" },
+        "referralBonusAmount": { "type": "number" },
+        "easypaisaNumber": { "type": "string" },
+        "easypaisaTitle": { "type": "string" },
+        "jazzcashNumber": { "type": "string" },
+        "jazzcashTitle": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "maintenanceMode",
+        "maintenanceMessage",
+        "depositFeePercent",
+        "referralBonusAmount",
+        "easypaisaNumber",
+        "easypaisaTitle",
+        "jazzcashNumber",
+        "jazzcashTitle",
+        "updatedAt"
+      ]
+    },
+    "AdminSession": {
+      "title": "AdminSession",
+      "description": "Verified administrator session marker keyed by authenticated UID.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "adminAccessHash": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "adminAccessHash", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Investor profile, real-time wallet balance, referral stats, active plan status, KYC verification, and 2FA security.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "username": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "passwordHash": { "type": "string" },
+        "balance": { "type": "number" },
+        "totalInvested": { "type": "number" },
+        "totalEarnings": { "type": "number" },
+        "referralCode": { "type": "string" },
+        "referredByCode": { "type": "string" },
+        "referredByUserId": { "type": "string" },
+        "referralRewardPaid": { "type": "boolean" },
+        "referralCount": { "type": "integer" },
+        "referralEarnings": { "type": "number" },
+        "hasActivePlan": { "type": "boolean" },
+        "avatarBase64": { "type": "string" },
+        "faceSelfieBase64": { "type": "string" },
+        "faceStatus": { "type": "string", "enum": ["UNVERIFIED", "PENDING", "VERIFIED", "REJECTED"] },
+        "faceAiNote": { "type": "string" },
+        "kycStatus": {
+          "type": "string",
+          "enum": ["UNVERIFIED", "PENDING", "VERIFIED", "REJECTED"]
+        },
+        "kycFullName": { "type": "string" },
+        "kycCnic": { "type": "string" },
+        "kycDocumentType": { "type": "string" },
+        "kycNote": { "type": "string" },
+        "twoFactorEnabled": { "type": "boolean" },
+        "twoFactorPinHash": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "userId", "fullName", "username", "phone", "email", "passwordHash",
+        "balance", "totalInvested", "totalEarnings", "referralCode",
+        "referralRewardPaid", "referralCount", "referralEarnings", "hasActivePlan",
+        "faceStatus", "kycStatus", "twoFactorEnabled", "createdAt", "updatedAt"
+      ]
+    },
+    "ReferralCodeMapping": {
+      "title": "ReferralCodeMapping",
+      "description": "Lookup record mapping an invite code to its owner UID.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "ownerUserId": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "ownerUserId", "ownerName", "createdAt"]
+    },
+    "PromoCode": {
+      "title": "PromoCode",
+      "description": "Admin-issued promo code redeemable exclusively by users with an active VIP plan.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "bonusAmount": { "type": "number" },
+        "maxUses": { "type": "integer" },
+        "usedCount": { "type": "integer" },
+        "isActive": { "type": "boolean" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "bonusAmount", "maxUses", "usedCount", "isActive", "description", "createdAt", "updatedAt"]
+    },
+    "PromoRedemption": {
+      "title": "PromoRedemption",
+      "description": "Per-user promo redemption receipt preventing duplicate redemption.",
+      "type": "object",
+      "properties": {
+        "promoCode": { "type": "string" },
+        "userId": { "type": "string" },
+        "bonusAmount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["promoCode", "userId", "bonusAmount", "createdAt"]
+    },
+    "SupportThread": {
+      "title": "SupportThread",
+      "description": "Live chat thread between an investor and Admin.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "unreadByAdmin": { "type": "integer" },
+        "unreadByUser": { "type": "integer" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "lastMessage", "unreadByAdmin", "unreadByUser", "updatedAt"]
+    },
+    "SupportMessage": {
+      "title": "SupportMessage",
+      "description": "Individual live chat message; admin messages strictly display senderName as Admin.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "senderRole": { "type": "string", "enum": ["USER", "ADMIN"] },
+        "senderName": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "senderRole", "senderName", "text", "createdAt"]
+    },
+    "DepositRequest": {
+      "title": "DepositRequest",
+      "description": "User deposit request via Easypaisa or JazzCash.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "amount": { "type": "number" },
+        "feeAmount": { "type": "number" },
+        "netAmount": { "type": "number" },
+        "method": { "type": "string", "enum": ["EASYPAISA", "JAZZCASH"] },
+        "senderPhone": { "type": "string" },
+        "transactionRef": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "amount", "feeAmount", "netAmount", "method", "senderPhone", "transactionRef", "status", "createdAt", "updatedAt"]
+    },
+    "WithdrawalRequest": {
+      "title": "WithdrawalRequest",
+      "description": "User withdrawal request via Easypaisa or JazzCash.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "amount": { "type": "number" },
+        "method": { "type": "string", "enum": ["EASYPAISA", "JAZZCASH"] },
+        "accountTitle": { "type": "string" },
+        "accountNumber": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED"] },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "amount", "method", "accountTitle", "accountNumber", "status", "createdAt", "updatedAt"]
+    },
+    "VipInvestment": {
+      "title": "VipInvestment",
+      "description": "Active or completed VIP investment subscription.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "planId": { "type": "string" },
+        "planName": { "type": "string" },
+        "investedAmount": { "type": "number" },
+        "dailyReturn": { "type": "number" },
+        "durationDays": { "type": "integer" },
+        "daysClaimed": { "type": "integer" },
+        "totalEarned": { "type": "number" },
+        "status": { "type": "string", "enum": ["ACTIVE", "COMPLETED"] },
+        "lastClaimedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "planId", "planName", "investedAmount", "dailyReturn", "durationDays", "daysClaimed", "totalEarned", "status", "createdAt", "updatedAt"]
+    },
+    "WalletTransaction": {
+      "title": "WalletTransaction",
+      "description": "Financial ledger record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["DEPOSIT", "WITHDRAWAL", "INVESTMENT", "DAILY_PROFIT", "REFUND", "REFERRAL_BONUS", "PROMO_BONUS"] },
+        "amount": { "type": "number" },
+        "fee": { "type": "number" },
+        "method": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "COMPLETED", "APPROVED", "REJECTED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "amount", "fee", "method", "referenceId", "title", "description", "status", "createdAt", "updatedAt"]
+    },
+    "AdminNotification": {
+      "title": "AdminNotification",
+      "description": "Real-time notification feed item for the Admin Notification Panel.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "type": { "type": "string", "enum": ["DEPOSIT_REQUEST", "WITHDRAWAL_REQUEST", "KYC_SUBMISSION", "FACE_VERIFICATION", "NEW_INVESTMENT", "SUPPORT_CHAT", "SYSTEM"] },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userName", "type", "title", "message", "referenceId", "isRead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/config/{configId}": {
+      "schema": { "$ref": "#/entities/AppSettings" },
+      "description": "Singleton platform settings document (app_settings)."
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/AdminSession" },
+      "description": "Verified admin session authorization records."
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profiles, wallet balances, referral stats, KYC details, and 2FA settings."
+    },
+    "/referral_codes/{code}": {
+      "schema": { "$ref": "#/entities/ReferralCodeMapping" },
+      "description": "Invite code to owner UID lookup mappings."
+    },
+    "/promo_codes/{code}": {
+      "schema": { "$ref": "#/entities/PromoCode" },
+      "description": "Admin-created promo codes."
+    },
+    "/promo_redemptions/{redemptionId}": {
+      "schema": { "$ref": "#/entities/PromoRedemption" },
+      "description": "Promo code redemption receipts keyed by code_userId."
+    },
+    "/support_chats/{userId}": {
+      "schema": { "$ref": "#/entities/SupportThread" },
+      "description": "Live chat threads between users and Admin."
+    },
+    "/support_chats/{userId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/SupportMessage" },
+      "description": "Live chat messages in a user's support thread."
+    },
+    "/deposits/{depositId}": {
+      "schema": { "$ref": "#/entities/DepositRequest" },
+      "description": "Easypaisa and JazzCash deposit requests."
+    },
+    "/withdrawals/{withdrawalId}": {
+      "schema": { "$ref": "#/entities/WithdrawalRequest" },
+      "description": "Easypaisa and JazzCash withdrawal requests."
+    },
+    "/investments/{investmentId}": {
+      "schema": { "$ref": "#/entities/VipInvestment" },
+      "description": "User VIP investment plan subscriptions."
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/WalletTransaction" },
+      "description": "User transaction history ledger."
+    },
+    "/admin_notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/AdminNotification" },
+      "description": "Real-time notifications for the Admin Notification Panel."
+    }
+  }
+}
